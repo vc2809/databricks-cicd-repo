@@ -1,0 +1,43 @@
+ name: CD Pipeline for Azure Databricks
+
+ on:
+   push:
+     branches:
+       - main
+
+ jobs:
+   deploy:
+     runs-on: ubuntu-latest
+
+     steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+
+     - name: Set up Python
+       uses: actions/setup-python@v4
+       with:
+         python-version: '3.x'
+
+     - name: Install Databricks CLI
+       run: pip install databricks-cli
+
+     - name: Configure Databricks CLI
+       run: |
+         databricks configure --token <<EOF
+         ${{secrets.DATABRICKS_HOST}}
+         ${{secrets.DATABRICKS_TOKEN}}
+         EOF
+     
+     - name: Import Notebook to Workspace
+       run: databricks workspace import sample_sales_notebook.py /Workspace/Users/25sha1639user11@skillmentoringlabs.onmicrosoft.com
+/sample_sales_notebook.py -l python --overwrite
+
+       env:
+         DATABRICKS_TOKEN: $
+
+     - name: Run Databricks Job
+       run: |
+         databricks jobs create --json-file job-config.json
+         databricks jobs run-now --job-id $(databricks jobs list | grep -m 1 'CD pipeline' | awk '{print $1}')
+       env:
+         DATABRICKS_TOKEN: $
