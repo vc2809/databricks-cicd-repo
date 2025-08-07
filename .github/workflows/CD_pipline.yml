@@ -29,8 +29,7 @@
          EOF
      
      - name: Import Notebook to Workspace
-       run: databricks workspace import sample_sales_notebook.py /Workspace/Users/25sha1639user11@skillmentoringlabs.onmicrosoft.com
-/sample_sales_notebook.py -l python --overwrite
+       run: databricks workspace import sample_sales_notebook.py /Workspace/Users/25sha1639user11@skillmentoringlabs.onmicrosoft.com/sample_sales_notebook.py -l python --overwrite
 
        env:
          DATABRICKS_TOKEN: $
