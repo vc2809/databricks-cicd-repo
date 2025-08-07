@@ -4,7 +4,6 @@
   "timeout_seconds": 1200,
   "max_retries": 3,
   "notebook_task": {
-    "notebook_path": "/Workspace/Users/25sha1639user11@skillmentoringlabs.onmicrosoft.com
-/sample_sales_notebook.py"
+    "notebook_path": "/Workspace/Users/25sha1639user11@skillmentoringlabs.onmicrosoft.com/sample_sales_notebook.py"
   }
 }
